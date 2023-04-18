@@ -1,6 +1,5 @@
 {
   "name": "jsaqa_3",
-  
   "version": "1.0.0",
   "description": "jest test",
   "main": "index.js",
@@ -11,15 +10,14 @@
       "!**/node_modules/**",
       "!**/coverage/**"
     ],
-      "coverageThreshold": {
-        "global": {
-          "branches": 80,
-          "functions": 80,
-          "lines": 80
-        }
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
       }
-},
-
+    }
+  },
   "scripts": {
     "test": "jest",
     "coverage-test": "jest --collectCoverage",
