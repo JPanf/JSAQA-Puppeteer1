@@ -1,3 +1,5 @@
+const { TimeoutError } = require("puppeteer");
+
 let page;
 
 beforeEach(async () => {

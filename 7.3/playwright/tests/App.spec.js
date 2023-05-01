@@ -1,11 +1,15 @@
 const { email } = require("../user");
-const { password } = require("../user");
+const { password } = require("../user"); 
 import { test, expect } from "@playwright/test";
-import { timeout } from "../playwright.config";
 
-test("Successfully authorization", async ({ page }) => {
+test("Successfully authorization", (async () => {
+    const browser = await chromium.launch({
+      headless: false,
+      slowMo: 5000,
+      devtools: true
+    });
+  const page = await browser.newPage();
   await page.goto("https://netology.ru/?modal=sign_in");
-  await page.screenshot({ path: "screenshots/loginpage.png" });
   await page.getByPlaceholder("Email").click();
   await page.getByPlaceholder("Email").fill(email);
   await page.getByPlaceholder("Пароль").click();
@@ -14,12 +18,10 @@ test("Successfully authorization", async ({ page }) => {
   await expect(page).toHaveURL("https://netology.ru/profile");
   expect(page.getByRole("heading", { name: "Мои курсы и профессии" })).toBeVisible;
   await page.waitForLoadState('load');
-  await page.screenshot({ path: "screenshots/profile.png", fullPage: true});
-});
+}),
 
 test("Unsuccess authorization", async ({ page }) => {
   await page.goto("https://netology.ru/?modal=sign_in");
-  await page.screenshot({ path: "screenshots/loginpage2.png" });
   await page.getByPlaceholder("Email").click();
   await page.getByPlaceholder("Email").fill("test@test.com");
   await page.getByPlaceholder("Пароль").click();
@@ -28,5 +30,4 @@ test("Unsuccess authorization", async ({ page }) => {
   await expect(page.getByTestId("login-error-hint")).toHaveText(
     "Вы ввели неправильно логин или пароль"
   );
-  await page.screenshot({ path: "screenshots/unsuccesslogin.png" });
-});
+}))
